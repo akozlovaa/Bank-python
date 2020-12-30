@@ -23,6 +23,7 @@ ma = Marshmallow(app)
 
 
 class VirtualBankService(BankService, db.Model):
+
     id = db.Column(db.Integer, primary_key=True)
     bank_name = db.Column(db.String(32), unique=False)
     maintenance_fee_in_usd = db.Column(db.Integer, unique=False)
@@ -43,15 +44,13 @@ class VirtualBankService(BankService, db.Model):
         super().__init__(bank_name, maintenance_fee_in_usd, plan_name, service_term, interest_rate_in_percents,
                          federal_funds_rate_in_percents, discount_rate_in_percents, service_type,
                          account_balance_in_usd)
-        # new field
         self.creator = creator
-        # new field
         self.memory_require = memory_require
 
 
 class VirtualBankServiceSchema(ma.Schema):
     class Meta:
-        fields = ('bank_name', 'maintenance_fee_in_usd', 'plan_name', 'service_class',
+        fields = ('bank_name', 'maintenance_fee_in_usd', 'plan_name', 'service_term',
                   'interest_rate_in_percents', 'federal_funds_rate_in_percents', 'discount_rate_in_percents',
                   'service_type', 'account_balance_in_usd', 'creator', 'memory_require')
 
@@ -80,7 +79,7 @@ def add_virtual_bank_service():
     virtual_bank_service = VirtualBankService(request.json['bank_name'],
                                               request.json['maintenance_fee_in_usd'],
                                               request.json['plan_name'],
-                                              request.json['service_class'],
+                                              request.json['service_term'],
                                               request.json['interest_rate_in_percents'],
                                               request.json['federal_funds_rate_in_percents'],
                                               request.json['discount_rate_in_percents'],
@@ -101,7 +100,7 @@ def virtual_bank_service_update(id):
     virtual_bank_service.bank_name = request.json['bank_name']
     virtual_bank_service.maintenance_fee_in_usd = request.json['maintenance_fee_in_usd']
     virtual_bank_service.plan_name = request.json['plan_name']
-    virtual_bank_service.service_term = request.json['service_class']
+    virtual_bank_service.service_term = request.json['service_term']
     virtual_bank_service.interest_rate_in_percents = request.json['interest_rate_in_percents']
     virtual_bank_service.federal_funds_rate_in_percents = request.json['federal_funds_rate_in_percents']
     virtual_bank_service.discount_rate_in_percents = request.json['discount_rate_in_percents']

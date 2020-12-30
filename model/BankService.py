@@ -27,21 +27,6 @@ class BankService:
         return bank_name + maintenance_fee_in_usd + plan_name + service_term + interest_rate_in_percents + federal_funds_rate_in_percents + discount_rate_in_percents + service_type + account_balance_in_usd
 
 
-class Loan:
-
-    def __init__(self, loan_amount_in_usd=None, loan_type=None):
-        self.loan_amount_in_usd = loan_amount_in_usd
-        self.loan_type = loan_type
-
-    def __del__(self):
-        return
-
-    def __str__(self):
-        loan_amount_in_usd = f'Loan amount: {self.loan_amount_in_usd}'
-        loan_type = f'Loan type: {self.loan_type}'
-        return loan_amount_in_usd + loan_type
-
-
 class Deposit:
 
     def __init__(self, deposit_amount_in_usd=None):
